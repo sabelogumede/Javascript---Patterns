@@ -70,16 +70,42 @@
 // console.log(honda);
 
 // ######## 05 Factory-Pattern 
+// class Car {
+//     constructor(doors, engine, color) {
+//         this.doors = doors;
+//         this.engine = engine;
+//         this.color = color;
+//     }
+
+// }
+
+// class carFactory {
+//     createCar(type) {
+//         switch(type) {
+//             case 'civic':
+//                 return new Car(4, 'V6', 'grey')
+//             case 'honda':
+//                 return new Car(2, 'V4', 'red')
+//         }
+//     }
+// }
+
+// const factory = new carFactory();
+// const honda = factory.createCar('honda');
+
+// console.log(honda);
+
+// ######## 06 Abstract-Factory-Pattern
+
 class Car {
     constructor(doors, engine, color) {
         this.doors = doors;
         this.engine = engine;
         this.color = color;
     }
-
 }
 
-class carFactory {
+class CarFactory {
     createCar(type) {
         switch(type) {
             case 'civic':
@@ -90,8 +116,45 @@ class carFactory {
     }
 }
 
-const factory = new carFactory();
-const honda = factory.createCar('honda');
+class Suv {
+    constructor(doors, engine, color) {
+        this.doors = doors;
+        this.engine = engine;
+        this.color = color;
+    }
 
-console.log(honda);
+}
 
+class SuvFactory {
+    createSuv(type) {
+        switch(type) {
+            case 'cx5':
+                return new Suv(4, 'V12', 'grey')
+            case 'x5':
+                return new Suv(2, 'V4', 'red')
+        }
+    }
+}
+
+const carfactory = new CarFactory();
+const suvFactory = new SuvFactory();
+
+const autoManufacturer = (type, model) => {
+    switch(type) {
+        case 'car':
+            return carFactory.createCar(model);
+        case 'suv':
+            return suvFactory.createSuv(model);
+    }
+};
+
+
+// const honda = factory.createCar('honda');
+// const cx5 = factory.createCar('cx5');
+
+const cx5 = autoManufacturer('suv', 'cx5')
+
+// console.log(honda);
+// console.log(cx5);
+
+console.log(cx5);
